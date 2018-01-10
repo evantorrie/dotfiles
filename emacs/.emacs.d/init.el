@@ -26,11 +26,17 @@
       user-mail-address "etorrie@gmail.com")
 
 (setq backup-directory-alist '(("." . "~/docs/emacs/backups")))
+(setq auto-save-file-name-transforms '((".*" "~/docs/emacs/auto-save-list/" t)))
 (setq delete-old-versions -1)
 (setq version-control t)
 (setq vc-make-backup-files t)
-(setq auto-save-file-name-transforms '((".*" "~/docs/emacs/auto-save-list/" t)))
 
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-language-environment "UTF-8")
+(prefer-coding-system 'utf-8)
+
+(setq mode-require-file-newline t)    ; add a newline to end of any file
 ;; Never use tabs!
 (setq-default indent-tabs-mode nil)
 
