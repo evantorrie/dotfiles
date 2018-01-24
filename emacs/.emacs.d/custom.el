@@ -7,6 +7,7 @@
  '(gtags-suggested-key-mapping t)
  '(helm-candidate-number-limit 500)
  '(inhibit-startup-screen t)
+ '(js-indent-level 4)
  '(js2-basic-offset 4)
  '(magit-diff-add ((t (:inherit diff-added :weight bold))))
  '(magit-hash ((t (:background "white" :foreground "grey40"))))
@@ -14,11 +15,12 @@
  '(magit-log-show-margin nil)
  '(magit-popup-use-prefix-argument (quote popup))
  '(markdown-command "pandoc")
+ '(mode-require-final-newline (quote visit-save))
  '(nxml-child-indent 4)
  '(nxml-sexp-element-flag t)
  '(package-selected-packages
    (quote
-    (ggtags projectile exec-path-from-shell magit use-package)))
+    (outline-magic vimish-fold diminish json-mode js2-mode editorconfig flycheck ggtags projectile exec-path-from-shell magit use-package)))
  '(safe-local-variable-values
    (quote
     ((c-set-style . "knr")
@@ -43,8 +45,9 @@
  '(diff-header ((((class color) (min-colors 88) (background dark)) (:background "color-235"))))
  '(ediff-even-diff-A ((((class color) (min-colors 16)) (:background "color-237" :foreground "white"))))
  '(ediff-even-diff-B ((((class color) (min-colors 16)) (:background "color-235" :foreground "White"))))
- '(ediff-odd-diff-A ((((class color) (min-colors 16)) (:background "color-246" :foreground "black"))))
- '(ediff-odd-diff-C ((((class color) (min-colors 16)) (:background "color-246" :foreground "black"))))
+ '(ediff-even-diff-C ((t (:background "dark gray"))))
+ '(ediff-odd-diff-A ((t (:background "color-246" :foreground "gray31"))))
+ '(ediff-odd-diff-C ((t (:background "color-246" :foreground "gray40"))))
  '(escape-glyph ((t (:foreground "cyan" :inverse-video t))))
  '(font-lock-comment-face ((t (:foreground "yellow"))))
  '(helm-selection ((t (:background "red" :distant-foreground "red"))))
