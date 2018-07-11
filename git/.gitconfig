@@ -1,3 +1,18 @@
 [user]
-	email = etorrie@gmail.com
 	name = Evan Torrie
+	useConfigOnly = true
+[init]
+	templatedir = ~/.git/template
+[pull]
+	rebase = true
+
+[include]
+        path = ~/dotfiles/git/include.inc
+
+; include for all repositories inside $HOME/gitrepos/git.ouroath
+[includeIf "gitdir:~/gitrepos/work/"]
+	path = ~/dotfiles/git/evant_at_oath.inc
+
+; include for all repositories inside $HOME/gitrepos/github.com
+[includeIf "gitdir:~/gitrepos/ext/"]
+	path = ~/dotfiles/git/etorrie_at_gmail.inc

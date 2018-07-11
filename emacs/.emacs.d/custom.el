@@ -6,6 +6,7 @@
  '(c-basic-offset 4)
  '(gtags-suggested-key-mapping t)
  '(helm-candidate-number-limit 500)
+ '(helm-ff-skip-boring-files t)
  '(inhibit-startup-screen t)
  '(js-indent-level 4)
  '(js2-basic-offset 4)
@@ -20,7 +21,7 @@
  '(nxml-sexp-element-flag t)
  '(package-selected-packages
    (quote
-    (outline-magic vimish-fold diminish json-mode js2-mode editorconfig flycheck ggtags projectile exec-path-from-shell magit use-package)))
+    (blacken helm-ag go-mode flycheck-yaml flycheck-yamllint yaml-mode virtualenvwrapper git-timemachine flycheck-pos-tip helm-config helm-descbinds projectile-ripgrep helm-projectile helm outline-toc bazel-mode markdown-mode outline-magic vimish-fold diminish json-mode js2-mode editorconfig flycheck ggtags projectile exec-path-from-shell magit use-package)))
  '(safe-local-variable-values
    (quote
     ((c-set-style . "knr")
@@ -34,8 +35,10 @@
       (innamespace . 0)))))
  '(scroll-bar-mode (quote right))
  '(size-indication-mode t)
+ '(tab-width 4)
  '(vc-diff-switches "-b")
- '(vc-svn-diff-switches "-x -w"))
+ '(vc-svn-diff-switches "-x -w")
+ '(yaml-indent-offset 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -50,9 +53,14 @@
  '(ediff-odd-diff-C ((t (:background "color-246" :foreground "gray40"))))
  '(escape-glyph ((t (:foreground "cyan" :inverse-video t))))
  '(font-lock-comment-face ((t (:foreground "yellow"))))
- '(helm-selection ((t (:background "red" :distant-foreground "red"))))
+ '(helm-buffer-directory ((t (:background "LightGray" :foreground "dark blue"))))
+ '(helm-ff-directory ((t (:foreground "LightGreen"))))
+ '(helm-selection ((t (:background "dark magenta"))))
+ '(isearch ((t (:background "palevioletred2" :foreground "light green" :slant italic :weight bold))))
+ '(magit-dimmed ((t (:foreground "grey75"))))
+ '(magit-hash ((t (:foreground "grey70"))))
  '(match ((((class color) (min-colors 8) (background dark)) (:background "lightblue" :foreground "white" :inverse-video nil :box (:line-width 2 :color "yellow" :style released-button) :slant italic))))
- '(region ((t (:background "red"))) nil "what the hell?")
+ '(region ((t (:background "dark red"))) nil "what the hell?")
  '(secondary-selection ((t (:background "yellow" :foreground "black"))))
  '(svn-status-marked-face ((((type tty) (class color)) (:background "color-18" :foreground "brightgreen" :weight light))))
  '(svn-status-marked-popup-face ((((type tty) (class color)) (:foreground "brightgreen" :weight light)))))

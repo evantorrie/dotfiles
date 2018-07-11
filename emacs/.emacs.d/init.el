@@ -27,17 +27,23 @@
   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-verbose t)
+(setq use-package-always-ensure t)
 
 
 (setq user-full-name "Evan Torrie"
       user-mail-address "etorrie@gmail.com")
 
+;; Backups and autosaves should be saved elsewhere
 (setq backup-directory-alist '(("." . "~/docs/emacs/backups")))
 (setq auto-save-file-name-transforms '((".*" "~/docs/emacs/auto-save-list/" t)))
 (setq delete-old-versions -1)
 (setq version-control t)
 (setq vc-make-backup-files t)
 
+;; I don't need the toolbar
+(tool-bar-mode -1)
+
+;; I prefer UTF-8 if I can
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment "UTF-8")
@@ -46,30 +52,53 @@
 (setq-default indent-tabs-mode nil) ;; Never use tabs!
 
 (use-package diminish
-  :ensure t)
-
-(use-package magit
-  :ensure t
-  :bind ("C-x g" . magit-status))
-
-(use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode)
   )
 
+(use-package magit
+  :bind ("C-x g" . magit-status))
+
+(use-package git-timemachine
+  :bind ("C-x v g" . git-timemachine-toggle)
+  )
+
+(use-package virtualenvwrapper
+  :init
+  (venv-initialize-interactive-shells)
+  )
+
+(use-package flycheck-pos-tip
+  )
+
+(use-package flycheck
+  :init
+  (global-flycheck-mode)
+  :config
+  (flycheck-pos-tip-mode)
+  )
+
+(use-package flycheck-yamllint)
+
+;; Don't use flymake when flycheck is installed
 (use-package flymake
   :disabled t)
 
+;(use-package helm-ag)
+
+(use-package yaml-mode
+  :mode (("\\.yml\\'" . yaml-mode)
+         ("\\.yaml\\'" . yaml-mode))
+  )
+
 (use-package editorconfig
-  :ensure t)
+  )
+
+(use-package go-mode
+  :mode (("\\.go$" . go-mode)))
 
 (use-package js2-mode
-  :ensure t
   :mode (("\\.js$" . js2-mode)))
 
 (use-package json-mode
-  :ensure t
   :mode (("\\.json$" . json-mode))
   :config
   (add-hook 'json-mode-hook
@@ -79,14 +108,30 @@
 )
 
 (use-package helm
-  :ensure t
+  :diminish helm-mode
+  :init
+  (setq helm-command-prefix-key "C-c h")
+  (setq helm-split-window-default-side 'other)
+  :config
+  (helm-mode 1)
   :bind (
-         ("C-c h" . helm-command-prefix)
-         ("M-x" . helm-M-x))
+         ("M-x"     . helm-M-x)
+         ("M-y"     . helm-show-kill-ring)
+         ("C-M-z"   . helm-resume)
+         ("C-x C-f" . helm-find-files)
+         ("C-x f"   . helm-recentf)
+         :map helm-map
+         ("<tab>" . helm-execute-persistent-action)
+         ("C-i" . helm-execute-persistent-action)
+         ("C-z" . helm-select-action))
   )
+
+(use-package helm-descbinds
+  :bind (("C-h b" . helm-descbinds)))
 
 (use-package projectile
   :ensure t
+  :diminish projectile-mode
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
@@ -99,17 +144,15 @@
   )
 
 (use-package helm-projectile
-  :ensure t)
+  )
 
 (use-package ggtags
-  :ensure t
   :commands ggtags-mode
   :config
   (unbind-key "M-<" ggtags-mode-map)
   (unbind-key "M->" ggtags-mode-map))
 
 (use-package cc-mode
-  :ensure nil
   :config
   (add-hook 'c-mode-common-hook
             (lambda ()
@@ -119,18 +162,25 @@
                   (outline-minor-mode))
                 ))))
 
-
 (use-package outline-magic
-  :ensure t
   :bind (:map outline-minor-mode-map
               ("<C-tab>" . outline-cycle))
 )
 
 (use-package projectile-ripgrep
-  :ensure t)
+  )
+
+(use-package bazel-mode
+  :mode "\\.bzl\\'")
+
+(use-package markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 
 (use-package exec-path-from-shell
-  :ensure t
   :init
   (when (memq window-system '(mac ns))
     (progn

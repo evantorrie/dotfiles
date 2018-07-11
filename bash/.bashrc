@@ -3,7 +3,7 @@
 
 pathmunge () {
         if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
-           if [ "$2" = "after" ] ; then
+           if [[ "$2" == "after" ]] ; then
               PATH=$PATH:$1
            else
               PATH=$1:$PATH
@@ -13,18 +13,24 @@ pathmunge () {
 
 umask 022
 
-for x in $HOME/bin /usr/local/opt/findutils/libexec/gnubin /usr/local/bin /home/y/bin64 /home/y/bin /usr/java/latest/bin /usr/sbin ; do
+for x in /usr/local/opt/findutils/libexec/gnubin /usr/local/opt/llvm/bin /usr/local/bin /home/y/bin64 /home/y/bin /usr/java/latest/bin /usr/sbin ; do
+  [ -d $x ] && pathmunge $x
+done
+
+for x in $HOME/bin $HOME/.cargo/bin /usr/local/opt/python/libexec/bin; do
   [ -d $x ] && pathmunge $x
 done
 
 export MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
 
+
 setupColors() {
   local os=$(uname)
   case $os in
-  FreeBSD)
+  FreeBSD|Darwin)
     export CLICOLOR=1
     export LSCOLORS=EhfxcxdxBxegedabagacad
+    alias ls='ls -F'
   ;;
   Linux)
     if [ -r $HOME/.dir_colors ] ; then
@@ -83,7 +89,7 @@ setupPrompts() {
           ;;
   esac
 
-  source ~/.git-completion.bash
+  [ -d ~/.git-completion.bash ] && . ~/.git-completion.bash
 }
 
 setupOSSpecifics() {
@@ -106,14 +112,16 @@ setupOpenstack() {
 }
 
 setupGo() {
-    export GOPATH=$HOME/quickduty-dl.corp/gotop
+    export GOPATH=$HOME/go
     pathmunge $GOPATH/bin before
 }
 
 setupPython() {
     export WORKON_HOME=$HOME/.virtualenvs
     export PROJECT_HOME=$HOME/pythonprojects
-#    source $HOME/.local/bin/virtualenvwrapper.sh
+    export VIRTUALENVWRAPPER_PYTHON=python3
+    export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+    source /usr/local/bin/virtualenvwrapper.sh
 }
 
 if [ "$PS1" != "" ]
@@ -122,15 +130,10 @@ then
 	setenv ()  { export $1="$2"; }
 	unsetenv ()  { unset $*; }
 	
-        function pushenv() {
-            rsync -avzP --exclude '*~' ~/homedir evant@$1:
-        }
-
 	shopt -s extglob
 
-        export EDITOR=emacs
-
-        export INFOPATH=/opt/share/info/:/usr/local/share/info/:/usr/local/info/:/usr/local/emacs/info/:/usr/share/info/
+    export EDITOR=emacs
+    export INFOPATH=/opt/share/info/:/usr/local/share/info/:/usr/local/info/:/usr/local/emacs/info/:/usr/share/info/
 
 	## make certain we don't just erase the screen when exiting less
 	alias less="less --no-init"
@@ -161,9 +164,10 @@ export BRANCH=stable
 
 ##[ -r ~/perl5/perlbrew/etc/bashrc ]  && source ~/perl5/perlbrew/etc/bashrc
 
-export NVM_DIR="/home/evant/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export SSH_AUTH_SOCK=$HOME/.yubiagent/sock
 
 # Case-insensitive globbing (used in pathname expansion)
@@ -188,3 +192,4 @@ if which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_c
 elif [ -f /etc/bash_completion ]; then
     source /etc/bash_completion;
 fi;
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
