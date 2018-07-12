@@ -161,8 +161,7 @@ fi
 
 
 export BRANCH=stable
-
-##[ -r ~/perl5/perlbrew/etc/bashrc ]  && source ~/perl5/perlbrew/etc/bashrc
+[ -r $HOME/perl5/perlbrew/etc/bashrc ]  && source $HOME/perl5/perlbrew/etc/bashrc
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

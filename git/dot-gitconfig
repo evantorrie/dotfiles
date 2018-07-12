@@ -16,3 +16,4 @@
 ; include for all repositories inside $HOME/gitrepos/github.com
 [includeIf "gitdir:~/gitrepos/ext/"]
 	path = ~/dotfiles/git/etorrie_at_gmail.inc
+
