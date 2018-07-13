@@ -2,7 +2,7 @@
 all:
 	@stowed=(); \
 	for i in * ; do \
-		[[ -d "$$i" ]] && stow "$$i" && stowed+=($$i); \
+		[[ -d "$$i" ]] && stow --dotfiles "$$i" && stowed+=($$i); \
 	done ; \
 	echo "Stowed $${stowed[@]}";
 
