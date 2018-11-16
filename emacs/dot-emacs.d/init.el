@@ -140,7 +140,8 @@
     (setq projectile-completion-system 'helm))
   :config
   (progn
-    (helm-projectile-on))
+    (helm-projectile-on)
+    (setq projectile-indexing-method 'alien))
   )
 
 (use-package helm-projectile

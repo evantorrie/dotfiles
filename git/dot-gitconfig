@@ -1,6 +1,7 @@
 [user]
 	name = Evan Torrie
 	useConfigOnly = true
+	email = evant@oath.com
 [init]
 	templatedir = ~/.git/template
 [pull]
@@ -17,3 +18,16 @@
 [includeIf "gitdir:~/gitrepos/ext/"]
 	path = ~/.git/etorrie_at_gmail.inc
 
+[rebase]
+	autoStash = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff]
+	submodule = diff
+[alias]
+	subpull = !git pull && git submodule sync --recursive && git submodule update --init --recursive
+[core]
+	abbrev = 5

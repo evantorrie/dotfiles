@@ -15,13 +15,13 @@
  '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n100")))
  '(magit-log-show-margin nil)
  '(magit-popup-use-prefix-argument (quote popup))
- '(markdown-command "pandoc")
+ '(markdown-command "pandoc" t)
  '(mode-require-final-newline (quote visit-save))
  '(nxml-child-indent 4)
  '(nxml-sexp-element-flag t)
  '(package-selected-packages
    (quote
-    (blacken helm-ag go-mode flycheck-yaml flycheck-yamllint yaml-mode virtualenvwrapper git-timemachine flycheck-pos-tip helm-config helm-descbinds projectile-ripgrep helm-projectile helm outline-toc bazel-mode markdown-mode outline-magic vimish-fold diminish json-mode js2-mode editorconfig flycheck ggtags projectile exec-path-from-shell magit use-package)))
+    (helm-rg magit-gh-pulls dockerfile-mode groovy-mode blacken helm-ag go-mode flycheck-yaml flycheck-yamllint yaml-mode virtualenvwrapper git-timemachine flycheck-pos-tip helm-config helm-descbinds projectile-ripgrep helm-projectile helm outline-toc bazel-mode markdown-mode outline-magic vimish-fold diminish json-mode js2-mode editorconfig flycheck ggtags projectile exec-path-from-shell magit use-package)))
  '(safe-local-variable-values
    (quote
     ((c-set-style . "knr")
@@ -36,6 +36,7 @@
  '(scroll-bar-mode (quote right))
  '(size-indication-mode t)
  '(tab-width 4)
+ '(tool-bar-mode nil)
  '(vc-diff-switches "-b")
  '(vc-svn-diff-switches "-x -w")
  '(yaml-indent-offset 2))
@@ -44,7 +45,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "gray12" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 130 :width normal :foundry "nil" :family "Inconsolata"))))
+ '(default ((t (:inherit nil :stipple nil :background "gray12" :foreground "green" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 130 :width normal :foundry "nil" :family "Inconsolata Nerd Font Mono"))))
  '(diff-header ((((class color) (min-colors 88) (background dark)) (:background "color-235"))))
  '(ediff-even-diff-A ((((class color) (min-colors 16)) (:background "color-237" :foreground "white"))))
  '(ediff-even-diff-B ((((class color) (min-colors 16)) (:background "color-235" :foreground "White"))))
