@@ -2,6 +2,7 @@
 	name = Evan Torrie
 	useConfigOnly = true
 	email = evant@oath.com
+    signingkey = 1A3587A0
 [init]
 	templatedir = ~/.git/template
 [pull]
@@ -31,3 +32,5 @@
 	subpull = !git pull && git submodule sync --recursive && git submodule update --init --recursive
 [core]
 	abbrev = 5
+[gpg]
+	program = gpg

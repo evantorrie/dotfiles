@@ -1,3 +1,4 @@
+# -*- mode: Shell-script; -*-
 #=== start of automatically maintained lines (do not delete)===
 # .bashrc, sourced by interactive non-login shells (also called by .bash_profile)
 
@@ -143,6 +144,9 @@ then
 	## make certain we don't just erase the screen when exiting less
 	alias less="less --no-init"
 
+    # Get GPG to work with pinentry see https://mitchellcash.com/2017/01/31/you-need-a-passphrase-fixing-an-issue-when-signing-git-commits-on-a-mac.html
+    export GPG_TTY=$(tty)
+
 	## following seems to work for RHEL - not certain for FBSD
 	export MANPAGER="less -X"
 	export PAGER="less -X"
@@ -157,9 +161,9 @@ then
         esac
 
 	setupOSSpecifics
-        setupOpenstack
+    setupOpenstack
 	setupPython
-        setupGo
+    setupGo
 fi
 #===   end of automatically maintained lines (do not delete)===
 # per-user custom comands go here...
