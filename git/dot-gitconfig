@@ -2,14 +2,15 @@
 	name = Evan Torrie
 	useConfigOnly = true
 	email = evant@oath.com
-    signingkey = 1A3587A0
+	signingkey = CB736BC2
 [init]
 	templatedir = ~/.git/template
 [pull]
 	rebase = true
 
 [include]
-        path = ~/.git/include.inc
+         path = ~/.git/evant_at_oath.inc
+#        path = ~/.git/include.inc
 
 ; include for all repositories inside $HOME/gitrepos/git.ouroath
 [includeIf "gitdir:~/gitrepos/work/"]

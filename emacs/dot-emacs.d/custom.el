@@ -15,7 +15,7 @@
  '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n100")))
  '(magit-log-show-margin nil)
  '(magit-popup-use-prefix-argument (quote popup))
- '(markdown-command "pandoc" t)
+ '(markdown-command "pandoc")
  '(mode-require-final-newline (quote visit-save))
  '(nxml-child-indent 4)
  '(nxml-sexp-element-flag t)
@@ -24,7 +24,9 @@
     (helm-rg magit-gh-pulls dockerfile-mode groovy-mode blacken helm-ag go-mode flycheck-yaml flycheck-yamllint yaml-mode virtualenvwrapper git-timemachine flycheck-pos-tip helm-config helm-descbinds projectile-ripgrep helm-projectile helm outline-toc bazel-mode markdown-mode outline-magic vimish-fold diminish json-mode js2-mode editorconfig flycheck ggtags projectile exec-path-from-shell magit use-package)))
  '(safe-local-variable-values
    (quote
-    ((c-set-style . "knr")
+    ((git-commit-major-mode . git-commit-elisp-text-mode)
+     (bug-reference-bug-regexp . "#\\(?2:[0-9]+\\)")
+     (c-set-style . "knr")
      (Indent . Inktomi4)
      (Indent . Inktomi2)
      (c-comment-only-line-offset . 0)
