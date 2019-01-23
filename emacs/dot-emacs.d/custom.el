@@ -17,6 +17,7 @@
  '(magit-popup-use-prefix-argument (quote popup))
  '(markdown-command "pandoc")
  '(mode-require-final-newline (quote visit-save))
+ '(ns-right-alternate-modifier (quote super))
  '(nxml-child-indent 4)
  '(nxml-sexp-element-flag t)
  '(package-selected-packages

@@ -17,7 +17,53 @@ umask 022
 for x in /usr/local/opt/findutils/libexec/gnubin /usr/local/bin /home/y/bin64 /home/y/bin /usr/java/latest/bin /usr/sbin ; do
   [ -d $x ] && pathmunge $x
 done
-# /usr/local/opt/llvm/bin in PATH results in stdlib.h not being found by cgo
+## /usr/local/opt/llvm/bin in PATH results in stdlib.h not being found by cgo
+
+setupBinutils() {
+
+    pathmunge /usr/local/opt/binutils/bin
+#  echo 'export PATH="/usr/local/opt/binutils/bin:$PATH"' >> ~/.bash_profile
+
+#For compilers to find binutils you may need to set:
+    export LDFLAGS="-L/usr/local/opt/binutils/lib"
+    export CPPFLAGS="-I/usr/local/opt/binutils/include"
+}
+
+setupLLVM() {
+    # llvm is keg-only, which means it was not symlinked into /usr/local,
+    # because macOS already provides this software and installing another version in
+    # parallel can cause all kinds of trouble.
+
+#    setupBinutils
+    pathmunge /usr/local/opt/llvm/bin
+
+    export LDFLAGS="${LDFLAGS} -L/usr/local/opt/llvm/lib"
+    export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/llvm/include"
+}
+
+##
+##
+## Ruby from homebrew
+##
+## By default, binaries installed by gem will be placed into:
+##   /usr/local/lib/ruby/gems/2.6.0/bin
+
+## You may want to add this to your PATH.
+
+## ruby is keg-only, which means it was not symlinked into /usr/local,
+## because macOS already provides this software and installing another version in
+## parallel can cause all kinds of trouble.
+
+## If you need to have ruby first in your PATH run:
+##   echo 'export PATH="/usr/local/opt/ruby/bin:$PATH"' >> ~/.bash_profile
+
+## For compilers to find ruby you may need to set:
+##   export LDFLAGS="-L/usr/local/opt/ruby/lib"
+##   export CPPFLAGS="-I/usr/local/opt/ruby/include"
+
+## For pkg-config to find ruby you may need to set:
+##   export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+
 
 for x in $HOME/bin $HOME/.cargo/bin /usr/local/opt/python/libexec/bin; do
   [ -d $x ] && pathmunge $x
@@ -31,7 +77,7 @@ setupColors() {
   case $os in
   FreeBSD|Darwin)
     export CLICOLOR=1
-    export LSCOLORS=EhfxcxdxBxegedabagacad
+    export LSCOLORS=ExfxcxdxBxegedabagacad
     alias ls='ls -F'
   ;;
   Linux)
@@ -205,3 +251,57 @@ elif [ -f /etc/bash_completion ]; then
     source /etc/bash_completion;
 fi;
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+
+### LLVM
+### ====
+### To use the bundled libc++ please add the following LDFLAGS:
+###   LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
+
+### llvm is keg-only, which means it was not symlinked into /usr/local,
+### because macOS already provides this software and installing another version in
+### parallel can cause all kinds of trouble.
+
+### If you need to have llvm first in your PATH run:
+###   echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bash_profile
+
+### For compilers to find llvm you may need to set:
+###   export LDFLAGS="-L/usr/local/opt/llvm/lib"
+###   export CPPFLAGS="-I/usr/local/opt/llvm/include"
+
+### ==> Summary
+### 🍺  /usr/local/Cellar/llvm/7.0.1: 5,351 files, 8.8GB
+
+### ==> Upgrading sqlite
+### ==> Downloading https://homebrew.bintray.com/bottles/sqlite-3.26.0.mojave.bottle.tar.gz
+### ######################################################################## 100.0%
+### ==> Pouring sqlite-3.26.0.mojave.bottle.tar.gz
+### ==> Caveats
+### sqlite is keg-only, which means it was not symlinked into /usr/local,
+### because macOS provides an older sqlite3.
+
+### If you need to have sqlite first in your PATH run:
+###   echo 'export PATH="/usr/local/opt/sqlite/bin:$PATH"' >> ~/.bash_profile
+
+### For compilers to find sqlite you may need to set:
+###   export LDFLAGS="-L/usr/local/opt/sqlite/lib"
+###   export CPPFLAGS="-I/usr/local/opt/sqlite/include"
+
+### For pkg-config to find sqlite you may need to set:
+### export PKG_CONFIG_PATH="/usr/local/opt/sqlite/lib/pkgconfig"
+
+### ==> Pouring grep-3.3.mojave.bottle.tar.gz
+### ==> Caveats
+### The command has been installed with the prefix "g".
+### If you do not want the prefix, install using the "with-default-names"
+### option.
+
+### If you need to use these commands with their normal names, you
+### can add a "gnubin" directory to your PATH from your bashrc like:
+###   PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+
+### Additionally, you can access their man pages with normal names if you add
+### the "gnuman" directory to your MANPATH from your bashrc as well:
+###   MANPATH="/usr/local/opt/grep/libexec/gnuman:$MANPATH"
+
