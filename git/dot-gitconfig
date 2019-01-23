@@ -9,12 +9,12 @@
 	rebase = true
 
 [include]
-         path = ~/.git/evant_at_oath.inc
+         path = ~/.git/evant_at_verizonmedia.inc
 #        path = ~/.git/include.inc
 
 ; include for all repositories inside $HOME/gitrepos/git.ouroath
 [includeIf "gitdir:~/gitrepos/work/"]
-	path = ~/.git/evant_at_oath.inc
+	path = ~/.git/evant_at_verizonmedia.inc
 
 ; include for all repositories inside $HOME/gitrepos/github.com
 [includeIf "gitdir:~/gitrepos/ext/"]
