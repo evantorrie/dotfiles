@@ -20,6 +20,13 @@
 [includeIf "gitdir:~/gitrepos/ext/"]
 	path = ~/.git/etorrie_at_gmail.inc
 
+[url "git@git.ouroath.com:"]
+    insteadOf = https://git.ouroath.com/
+[url "git@opensource.git.corp.yahoo.com:"]
+    insteadOf = https://opensource.git.corp.yahoo.com/
+[url "git@partner.git.corp.yahoo.com:"]
+    insteadOf = https://partner.git.corp.yahoo.com/
+
 [rebase]
 	autoStash = true
 [filter "lfs"]
@@ -31,6 +38,8 @@
 	submodule = diff
 [alias]
 	subpull = !git pull && git submodule sync --recursive && git submodule update --init --recursive
+	oldest-ancestor = !bash -c 'diff -u <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | sed -ne \"s/^ //p\" | head -1' -
+	llg = !git log --all --graph --decorate --abbrev-commit --pretty=oneline
 [core]
 	abbrev = 5
 [gpg]
