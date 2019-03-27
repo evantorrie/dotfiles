@@ -25,8 +25,19 @@ setupBinutils() {
 #  echo 'export PATH="/usr/local/opt/binutils/bin:$PATH"' >> ~/.bash_profile
 
 #For compilers to find binutils you may need to set:
-    export LDFLAGS="-L/usr/local/opt/binutils/lib"
-    export CPPFLAGS="-I/usr/local/opt/binutils/include"
+    export LDFLAGS="${LDFLAGS} -L/usr/local/opt/binutils/lib"
+    export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/binutils/include"
+}
+
+setupSqlite3() {
+
+    pathmunge /usr/local/opt/sqlite/bin
+
+#For compilers to find sqlite you may need to set:
+    export LDFLAGS="${LDFLAGS} -L/usr/local/opt/sqlite/lib"
+    export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/sqlite/include"
+
+    export PKG_CONFIG_PATH="/usr/local/opt/sqlite/lib/pkgconfig"
 }
 
 setupLLVM() {
