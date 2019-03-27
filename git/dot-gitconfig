@@ -2,7 +2,7 @@
 	name = Evan Torrie
 	useConfigOnly = true
 	email = evant@oath.com
-	signingkey = CB736BC2
+	signingkey = B115B34FCB736BC2
 [init]
 	templatedir = ~/.git/template
 [pull]
