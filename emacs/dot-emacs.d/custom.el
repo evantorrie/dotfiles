@@ -15,6 +15,9 @@
  '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n100")))
  '(magit-log-show-margin nil)
  '(magit-popup-use-prefix-argument (quote popup))
+ '(magit-status-sections-hook
+   (quote
+    (magit-insert-status-headers magit-insert-merge-log magit-insert-rebase-sequence magit-insert-am-sequence magit-insert-sequencer-sequence magit-insert-bisect-output magit-insert-bisect-rest magit-insert-bisect-log magit-insert-untracked-files magit-insert-unstaged-changes magit-insert-staged-changes magit-insert-modules magit-insert-stashes magit-insert-unpushed-to-pushremote magit-insert-unpushed-to-upstream-or-recent magit-insert-unpulled-from-pushremote magit-insert-unpulled-from-upstream)))
  '(markdown-command "pandoc")
  '(mode-require-final-newline (quote visit-save))
  '(ns-right-alternate-modifier (quote super))
@@ -22,7 +25,7 @@
  '(nxml-sexp-element-flag t)
  '(package-selected-packages
    (quote
-    (helm-rg magit-gh-pulls dockerfile-mode groovy-mode blacken helm-ag go-mode flycheck-yaml flycheck-yamllint yaml-mode virtualenvwrapper git-timemachine flycheck-pos-tip helm-config helm-descbinds projectile-ripgrep helm-projectile helm outline-toc bazel-mode markdown-mode outline-magic vimish-fold diminish json-mode js2-mode editorconfig flycheck ggtags projectile exec-path-from-shell magit use-package)))
+    (flycheck-clang-analyzer irony flycheck-golangci-lint helm-rg magit-gh-pulls dockerfile-mode groovy-mode blacken helm-ag go-mode flycheck-yaml flycheck-yamllint yaml-mode virtualenvwrapper git-timemachine flycheck-pos-tip helm-config helm-descbinds projectile-ripgrep helm-projectile helm outline-toc bazel-mode markdown-mode outline-magic vimish-fold diminish json-mode js2-mode editorconfig flycheck ggtags projectile exec-path-from-shell magit use-package)))
  '(safe-local-variable-values
    (quote
     ((git-commit-major-mode . git-commit-elisp-text-mode)

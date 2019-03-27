@@ -21,15 +21,6 @@
 (unless (assoc-default "org" package-archives)
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t))
 
-;; Bootstrap `use-package`
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(require 'use-package)
-(setq use-package-verbose t)
-(setq use-package-always-ensure t)
-
-
 (setq user-full-name "Evan Torrie"
       user-mail-address "etorrie@gmail.com")
 
@@ -50,6 +41,14 @@
 (prefer-coding-system 'utf-8)
 
 (setq-default indent-tabs-mode nil) ;; Never use tabs!
+
+;; Bootstrap `use-package`
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-verbose t)
+(setq use-package-always-ensure t)
 
 (use-package diminish
   )
@@ -90,6 +89,8 @@
   )
 
 (use-package editorconfig
+  :config
+  (editorconfig-mode 1)
   )
 
 (use-package go-mode
