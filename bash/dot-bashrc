@@ -29,6 +29,13 @@ setupBinutils() {
     export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/binutils/include"
 }
 
+setupE2FS() {
+    pathmunge /usr/local/opt/e2fsprogs/bin before
+    pathmunge /usr/local/opt/e2fsprogs/sbin before
+    export LDFLAGS="${LDFLAGS} -L/usr/local/opt/e2fsprogs/lib"
+    export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/e2fsprogs/include"
+}
+
 setupSqlite3() {
 
     pathmunge /usr/local/opt/sqlite/bin
@@ -50,6 +57,11 @@ setupLLVM() {
 
     export LDFLAGS="${LDFLAGS} -L/usr/local/opt/llvm/lib"
     export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/llvm/include"
+}
+
+setupOpenSSL() {
+    export LDFLAGS="${LDFLAGS} -L/usr/local/opt/openssl/lib"
+    export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/openssl/include"
 }
 
 ##
@@ -166,8 +178,8 @@ setupOSSpecifics() {
 
 setupOpenstack() {
   export OS_USERNAME=`whoami`
-  export OS_TENANT_NAME=global_media.us
-  export OS_AUTH_URL=http://keystone-service.openstack.corp.gq1.corp.yahoodns.net:5000/v2.0
+#  export OS_TENANT_NAME=global_media.us
+#  export OS_AUTH_URL=http://keystone-service.openstack.corp.gq1.corp.yahoodns.net:5000/v2.0
 }
 
 setupGo() {
@@ -176,7 +188,7 @@ setupGo() {
 }
 
 myIP() {
-    curl 'https://api.ipify.org?format=json'
+    curl --silent 'https://api.ipify.org?format=json'
 }
 
 setupPython() {
@@ -187,13 +199,17 @@ setupPython() {
     source /usr/local/bin/virtualenvwrapper.sh
 }
 
+setupRuby() {
+    eval "$(rbenv init -)"
+}
+
 if [ "$PS1" != "" ]
 then
-	PS1="[\A] \u@\h \W\$ "
-	setenv ()  { export $1="$2"; }
-	unsetenv ()  { unset $*; }
+    PS1="[\A] \u@\h \W\$ "
+    setenv ()  { export $1="$2"; }
+    unsetenv ()  { unset $*; }
 	
-	shopt -s extglob
+    shopt -s extglob
 
     export EDITOR=emacs
     export INFOPATH=/opt/share/info/:/usr/local/share/info/:/usr/local/info/:/usr/local/emacs/info/:/usr/share/info/
@@ -217,10 +233,13 @@ then
                 ;;
         esac
 
-	setupOSSpecifics
-    setupOpenstack
-	setupPython
+    setupOSSpecifics
+#    setupOpenstack
+    setupPython
     setupGo
+    setupRuby
+
+    setupE2FS
 fi
 #===   end of automatically maintained lines (do not delete)===
 # per-user custom comands go here...
@@ -261,6 +280,7 @@ if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_
 elif [ -f /etc/bash_completion ]; then
     source /etc/bash_completion;
 fi;
+[ -f /usr/local/etc/profile.d/z.sh ] && . /usr/local/etc/profile.d/z.sh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
