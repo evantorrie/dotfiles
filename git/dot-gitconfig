@@ -16,16 +16,16 @@
 [includeIf "gitdir:~/gitrepos/work/"]
 	path = ~/.git/evant_at_verizonmedia.inc
 
-; include for all repositories inside $HOME/gitrepos/github.com
+; include for all repositories inside $HOME/gitrepos/ext
 [includeIf "gitdir:~/gitrepos/ext/"]
 	path = ~/.git/etorrie_at_gmail.inc
 
+; include for all repositories inside $HOME/gitrepos/ext/github.com
+[includeIf "gitdir:~/gitrepos/ext/github.com/"]
+        path = ~/.git/evantorrie_at_noreply_github.inc
+
 [url "git@git.ouroath.com:"]
     insteadOf = https://git.ouroath.com/
-[url "git@opensource.git.corp.yahoo.com:"]
-    insteadOf = https://opensource.git.corp.yahoo.com/
-[url "git@partner.git.corp.yahoo.com:"]
-    insteadOf = https://partner.git.corp.yahoo.com/
 
 [rebase]
 	autoStash = true
@@ -44,3 +44,5 @@
 	abbrev = 5
 [gpg]
 	program = gpg
+[url "git@github.com:"]
+	insteadOf = https://github.com/
