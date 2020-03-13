@@ -50,6 +50,14 @@
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
 
+(use-package rg
+  :init
+  (rg-enable-default-bindings)
+  )
+
+(use-package wgrep
+  )
+
 (use-package diminish
   )
 
@@ -168,9 +176,6 @@
   :bind (:map outline-minor-mode-map
               ("<C-tab>" . outline-cycle))
 )
-
-(use-package projectile-ripgrep
-  )
 
 (use-package bazel-mode
   :mode "\\.bzl\\'")
