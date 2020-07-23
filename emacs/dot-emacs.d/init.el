@@ -55,6 +55,15 @@
   (rg-enable-default-bindings)
   )
 
+(use-package multiple-cursors
+  :bind (
+         ("C-c m c" . mc/edit-lines)
+         ("C-c >"   . mc/mark-next-like-this)
+         ("C-c <"   . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)
+         )
+  )
+
 (use-package wgrep
   )
 

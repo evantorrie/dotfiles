@@ -14,8 +14,11 @@ pathmunge () {
 
 umask 022
 
-for x in /usr/local/opt/make/libexec/gnubin /usr/local/opt/findutils/libexec/gnubin /usr/local/bin /home/y/bin64 /home/y/bin /usr/java/latest/bin /usr/sbin ; do
-  [ -d $x ] && pathmunge $x
+#echo "path=$PATH"
+
+for x in /usr/local/opt/make/libexec/gnubin /usr/local/opt/findutils/libexec/gnubin /usr/local/bin /usr/java/latest/bin /usr/sbin ; do
+#  echo "adding $x"
+  [ -d $x ] && pathmunge $x after
 done
 ## /usr/local/opt/llvm/bin in PATH results in stdlib.h not being found by cgo
 
@@ -59,6 +62,12 @@ setupLLVM() {
     export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/llvm/include"
 }
 
+setupJava() {
+    eval "$(jenv init -)"
+    export JDK_HOME_8="$(jenv prefix 1.8)"
+    export JDK_HOME_11="$(jenv prefix 11.0.7)"
+}
+
 setupOpenSSL() {
     export LDFLAGS="${LDFLAGS} -L/usr/local/opt/openssl/lib"
     export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/openssl/include"
@@ -89,7 +98,8 @@ setupOpenSSL() {
 
 
 for x in $HOME/bin $HOME/.cargo/bin /usr/local/opt/python/libexec/bin; do
-  [ -d $x ] && pathmunge $x
+#  echo "Adding $x"
+  [ -d $x ] && pathmunge $x before
 done
 
 export MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
@@ -199,6 +209,10 @@ setupPython() {
     source /usr/local/bin/virtualenvwrapper.sh
 }
 
+setupYubi() {
+	pgrep -il yubico >& /dev/null && export SSH_AUTH_SOCK=$HOME/.yubiagent/sock
+}
+
 setupRuby() {
     eval "$(rbenv init -)"
 }
@@ -249,14 +263,13 @@ export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
 
 export BRANCH=stable
-[ -r $HOME/perl5/perlbrew/etc/bashrc ]  && source $HOME/perl5/perlbrew/etc/bashrc
+# [ -r $HOME/perl5/perlbrew/etc/bashrc ]  && source $HOME/perl5/perlbrew/etc/bashrc
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 
-pgrep -il yubico >& /dev/null && export SSH_AUTH_SOCK=$HOME/.yubiagent/sock
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
@@ -274,14 +287,16 @@ for option in autocd globstar; do
     shopt -s "$option" 2> /dev/null;
 done;
 
+# Use the wonderful z
+[[ -s /usr/local/etc/profile.d/z.sh ]] && . /usr/local/etc/profile.d/z.sh
+
 # Add tab completion for many Bash commands
-if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-   source "$(brew --prefix)/share/bash-completion/bash_completion";
-elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion;
-fi;
-[ -f /usr/local/etc/profile.d/z.sh ] && . /usr/local/etc/profile.d/z.sh
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export BASH_COMPLETION_COMPAT_DIR=/usr/local/etc/bash_completion.d
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
+
+# nvm bash completion?
+#[[ -s "$NVM_DIR/bash_completion" ]] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
 
