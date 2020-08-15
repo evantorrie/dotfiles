@@ -13,15 +13,15 @@
 #        path = ~/.git/include.inc
 
 ; include for all repositories inside $HOME/gitrepos/git.ouroath
-[includeIf "gitdir:~/gitrepos/work/"]
+[includeIf "gitdir:~/git/work/"]
 	path = ~/.git/evant_at_verizonmedia.inc
 
 ; include for all repositories inside $HOME/gitrepos/ext
-[includeIf "gitdir:~/gitrepos/ext/"]
+[includeIf "gitdir:~/git/ext/"]
 	path = ~/.git/etorrie_at_gmail.inc
 
 ; include for all repositories inside $HOME/gitrepos/ext/github.com
-[includeIf "gitdir:~/gitrepos/ext/github.com/"]
+[includeIf "gitdir:~/git/ext/github.com/"]
         path = ~/.git/evantorrie_at_noreply_github.inc
 
 [url "git@git.ouroath.com:"]
