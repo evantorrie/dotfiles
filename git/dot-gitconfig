@@ -1,20 +1,22 @@
 [user]
-	name = Evan Torrie
+	name = ET
 	useConfigOnly = true
-	email = evant@oath.com
+	email = evantorrie@users.noreply.github.com
 	signingkey = B115B34FCB736BC2
 [init]
 	templatedir = ~/.git/template
+	defaultBranch = main
 [pull]
 	rebase = true
 
 [include]
-         path = ~/.git/evant_at_verizonmedia.inc
+         path = ~/.git/evant_at_yahooinc.inc
+#        path = ~/.git/evant_at_verizonmedia.inc
 #        path = ~/.git/include.inc
 
-; include for all repositories inside $HOME/gitrepos/git.ouroath
+; include for all repositories inside $HOME/gitrepos/work
 [includeIf "gitdir:~/git/work/"]
-	path = ~/.git/evant_at_verizonmedia.inc
+	path = ~/.git/evant_at_yahooinc.inc
 
 ; include for all repositories inside $HOME/gitrepos/ext
 [includeIf "gitdir:~/git/ext/"]
@@ -24,8 +26,8 @@
 [includeIf "gitdir:~/git/ext/github.com/"]
         path = ~/.git/evantorrie_at_noreply_github.inc
 
-[url "git@git.ouroath.com:"]
-    insteadOf = https://git.ouroath.com/
+[url "git@git.vzbuilders.com:"]
+    insteadOf = https://git.vzbuilders.com/
 
 [rebase]
 	autoStash = true
@@ -46,3 +48,10 @@
 	program = gpg
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[credential]
+	helper = ""
+	helper = manager-core
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager-core
+[credential "https://dev.azure.com"]
+	useHttpPath = true
