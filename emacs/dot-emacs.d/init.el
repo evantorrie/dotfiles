@@ -98,8 +98,6 @@
 (use-package flymake
   :disabled t)
 
-;(use-package helm-ag)
-
 (use-package yaml-mode
   :mode (("\\.yml\\'" . yaml-mode)
          ("\\.yaml\\'" . yaml-mode))
@@ -126,26 +124,26 @@
 )
 
 (use-package helm
-  :diminish helm-mode
-  :init
-  (setq helm-command-prefix-key "C-c h")
-  (setq helm-split-window-default-side 'other)
-  :config
-  (helm-mode 1)
-  :bind (
-         ("M-x"     . helm-M-x)
-         ("M-y"     . helm-show-kill-ring)
-         ("C-M-z"   . helm-resume)
-         ("C-x C-f" . helm-find-files)
-         ("C-x f"   . helm-recentf)
-         :map helm-map
-         ("<tab>" . helm-execute-persistent-action)
-         ("C-i" . helm-execute-persistent-action)
-         ("C-z" . helm-select-action))
-  )
+ :diminish helm-mode
+ :init
+ (setq helm-command-prefix-key "C-c h")
+ (setq helm-split-window-default-side 'other)
+ :config
+ (helm-mode 1)
+ :bind (
+        ("M-x"     . helm-M-x)
+        ("M-y"     . helm-show-kill-ring)
+        ("C-M-z"   . helm-resume)
+        ("C-x C-f" . helm-find-files)
+        ("C-x f"   . helm-recentf)
+        :map helm-map
+        ("<tab>" . helm-execute-persistent-action)
+        ("C-i" . helm-execute-persistent-action)
+        ("C-z" . helm-select-action))
+)
 
 (use-package helm-descbinds
-  :bind (("C-h b" . helm-descbinds)))
+ :bind (("C-h b" . helm-descbinds)))
 
 (use-package projectile
   :ensure t
@@ -160,10 +158,10 @@
   (progn
     (helm-projectile-on)
     (setq projectile-indexing-method 'alien))
-  )
+ )
 
 (use-package helm-projectile
-  )
+ )
 
 (use-package ggtags
   :commands ggtags-mode
@@ -186,8 +184,8 @@
               ("<C-tab>" . outline-cycle))
 )
 
-(use-package bazel-mode
-  :mode "\\.bzl\\'")
+;(use-package bazel-mode
+;  :mode "\\.bzl\\'")
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)

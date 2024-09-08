@@ -1,3 +1,3 @@
 [user]
         name = Evan Torrie
-        email = "evantorrie@users.noreply.github.com"
+        email = "7834613+evantorrie@users.noreply.github.com"

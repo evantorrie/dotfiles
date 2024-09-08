@@ -1,4 +1,4 @@
-;; Nothing in here for now
+# Default if not specified elsewhere in .gitconfig
 [user]
         name = Evan Torrie
-        email = "etorrie@yahoo.com"
+        email = "evantorrie@users.noreply.github.com"

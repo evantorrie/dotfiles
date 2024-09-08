@@ -4,5 +4,7 @@ source $HOME/.bashrc
 #===   end of automatically maintained lines (do not delete)===
 
 # per-user custom comands go here...
+. "$HOME/.cargo/env"
 
-export SSH_AUTH_SOCK=$HOME/.yubiagent/sock
+# Created by `pipx` on 2024-09-08 00:35:47
+export PATH="$PATH:/Users/torrie/.local/bin"

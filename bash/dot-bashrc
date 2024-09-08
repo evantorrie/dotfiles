@@ -186,12 +186,6 @@ setupOSSpecifics() {
   esac
 }
 
-setupOpenstack() {
-  export OS_USERNAME=`whoami`
-#  export OS_TENANT_NAME=global_media.us
-#  export OS_AUTH_URL=http://keystone-service.openstack.corp.gq1.corp.yahoodns.net:5000/v2.0
-}
-
 setupGo() {
     export GOPATH=$HOME/go
     pathmunge $GOPATH/bin before
@@ -206,7 +200,7 @@ setupPython() {
     export PROJECT_HOME=$HOME/pythonprojects
     export VIRTUALENVWRAPPER_PYTHON=python3
     export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-    source /usr/local/bin/virtualenvwrapper.sh
+    [ -f /usr/local/bin/virtualenvwrapper.sh ] && . /usr/local/bin/virtualenvwrapper.sh
 }
 
 setupYubi() {
@@ -251,7 +245,7 @@ then
 #    setupOpenstack
     setupPython
     setupGo
-    setupRuby
+#    setupRuby
 
     setupE2FS
 fi
@@ -350,4 +344,12 @@ export BASH_COMPLETION_COMPAT_DIR=/usr/local/etc/bash_completion.d
 ### Additionally, you can access their man pages with normal names if you add
 ### the "gnuman" directory to your MANPATH from your bashrc as well:
 ###   MANPATH="/usr/local/opt/grep/libexec/gnuman:$MANPATH"
+
+. "$HOME/.cargo/env"
+
+# Created by `pipx` on 2024-09-08 00:35:47
+export PATH="$PATH:/Users/torrie/.local/bin"
+
+# Source starship prompt line.
+eval "$(starship init bash)"
 
