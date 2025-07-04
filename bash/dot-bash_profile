@@ -1,10 +1,14 @@
 #=== start of automatically maintained lines (do not delete)===
 # .bashrc, sourced by interactive login shells
+export PATH="/opt/homebrew/bin:$PATH"
+
 source $HOME/.bashrc
 #===   end of automatically maintained lines (do not delete)===
 
 # per-user custom comands go here...
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
 
-# Created by `pipx` on 2024-09-08 00:35:47
-export PATH="$PATH:/Users/torrie/.local/bin"
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.bash 2>/dev/null || :
