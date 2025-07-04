@@ -46,14 +46,94 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-(require 'use-package)
+(eval-when-compile
+  (require 'use-package))
 (setq use-package-verbose t)
+;; following will automatically install packages if they don't exist
 (setq use-package-always-ensure t)
+
+
+(use-package vertico
+  :init
+  (vertico-mode)
+  )
+
+(use-package marginalia
+  :after vertico
+  :init
+  (marginalia-mode)
+  )
+
+(use-package orderless
+  :after vertico
+  :init
+  ;; You can customize these dispatchers
+  ;; - ? for initialism (e.g., "fbf" matches "find-buffer-file")
+  ;; - * for substring (e.g., "buffer find" matches "find-buffer-file")
+  ;; - ! for regex (e.g., "!^f" matches items starting with "f")
+  ;; - ' for exact match (e.g., "'file.txt" only matches "file.txt")
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-defaults nil) ; Reset category defaults for better integration
+  (setq completion-category-overrides '((file (styles . (partial-completion))))) ; Example: keep partial-completion for files
+  )
+
+;; Consult: Enhanced Emacs commands using completing-read
+(use-package consult
+  :after (vertico embark) ; Ensure it loads after vertico and embark
+  :config
+  ;; Optionally, set up some keybindings for Consult commands
+  ;;  (global-map! [remap switch-to-buffer] #'consult-buffer) ;; Example keybinding
+  ;;  (global-map! [remap find-file] #'consult-find)           ;; Example keybinding
+  )
+
+;; Embark: Act on minibuffer candidates and regions
+(use-package embark
+  :bind (("C-." . embark-act)            ; Universal action key
+         ("C-x B" . embark-bindings)     ; List keybindings for the current command
+         ("M-." . embark-dwim))          ; "Do What I Mean" for action at point
+  :config
+  ;; You can customize actions here if needed
+  ;; (add-to-list 'embark-actions-alt-list '(find-file ("f" find-file)))
+  )
+
+;; Embark-Consult: Integration between Embark and Consult
+(use-package embark-consult
+  :after (embark consult) ; Ensure it loads after both embark and consult
+  :config
+  (embark-consult-mode)
+  ) ; Enables Embark actions on Consult search results
+
+;; Corfu: Completion-at-point framework
+(use-package corfu
+  :init
+  (global-corfu-mode)
+  :config
+  (setq corfu-cycle t         ;; Cycle through candidates with TAB/S-TAB
+        corfu-auto-completion nil  ;; Do not automatically complete (I prefer manual TAB)
+        corfu-auto-prefix 0   ;; Don't require a prefix for auto-completion
+        corfu-popupinfo-delay 0.5 ;; Delay for popup info (e.g., docstrings)
+        )
+  ;; Example: Disable in Eshell/Term (where it can interfere)
+  (add-hook 'eshell-mode-hook (lambda () (corfu-mode -1)))
+  (add-hook 'term-mode-hook (lambda () (corfu-mode -1)))
+  (add-hook 'vterm-mode-hook (lambda () (corfu-mode -1))))
+
+;; Cape: Completion-at-point backends for Corfu
+(use-package cape
+  :after corfu
+  :config
+  ;; Add backends to `completion-at-point-functions`
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  ;; Add more as needed, e.g., cape-elisp-block, cape-keyword, cape-sgml, cape-css, etc.
+  ;; (add-to-list 'completion-at-point-functions #'cape-tex)
+  )
 
 (use-package rg
   :init
   (rg-enable-default-bindings)
   )
+
 
 (use-package multiple-cursors
   :bind (
@@ -123,27 +203,27 @@
               (setq js-indent-level 2)))
 )
 
-(use-package helm
- :diminish helm-mode
- :init
- (setq helm-command-prefix-key "C-c h")
- (setq helm-split-window-default-side 'other)
- :config
- (helm-mode 1)
- :bind (
-        ("M-x"     . helm-M-x)
-        ("M-y"     . helm-show-kill-ring)
-        ("C-M-z"   . helm-resume)
-        ("C-x C-f" . helm-find-files)
-        ("C-x f"   . helm-recentf)
-        :map helm-map
-        ("<tab>" . helm-execute-persistent-action)
-        ("C-i" . helm-execute-persistent-action)
-        ("C-z" . helm-select-action))
-)
+;; (use-package helm
+;;  :diminish helm-mode
+;;  :init
+;;  (setq helm-command-prefix-key "C-c h")
+;;  (setq helm-split-window-default-side 'other)
+;;  :config
+;;  (helm-mode 1)
+;;  :bind (
+;;         ("M-x"     . helm-M-x)
+;;         ("M-y"     . helm-show-kill-ring)
+;;         ("C-M-z"   . helm-resume)
+;;         ("C-x C-f" . helm-find-files)
+;;         ("C-x f"   . helm-recentf)
+;;         :map helm-map
+;;         ("<tab>" . helm-execute-persistent-action)
+;;         ("C-i" . helm-execute-persistent-action)
+;;         ("C-z" . helm-select-action))
+;; )
 
-(use-package helm-descbinds
- :bind (("C-h b" . helm-descbinds)))
+;; (use-package helm-descbinds
+;;  :bind (("C-h b" . helm-descbinds)))
 
 (use-package projectile
   :ensure t
@@ -152,16 +232,16 @@
   ("C-c p" . projectile-command-map)
   :init
   (progn
-    (projectile-mode)
-    (setq projectile-completion-system 'helm))
+    (projectile-mode))
+;    (setq projectile-completion-system 'helm))
   :config
   (progn
-    (helm-projectile-on)
+    ; (helm-projectile-on)
     (setq projectile-indexing-method 'alien))
  )
 
-(use-package helm-projectile
- )
+;(use-package helm-projectile
+; )
 
 (use-package ggtags
   :commands ggtags-mode
